@@ -1,2 +1,2 @@
 # basic-quantum
-This is a file containing a simple calculation of quantum states
+This is a file containing simple calculations of quantum states
