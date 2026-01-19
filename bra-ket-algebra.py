@@ -1,0 +1,65 @@
+import numpy as np
+
+class DiracNotation:
+    """Simple bra-ket algebra implementation"""
+    
+    @staticmethod
+    def ket_to_bra(ket):
+        """|ψ⟩ → ⟨ψ|"""
+        return ket.conj().T
+    
+    @staticmethod
+    def bra_to_ket(bra):
+        """⟨ψ| → |ψ⟩"""
+        return bra.conj().T
+    
+    @staticmethod
+    def inner_product(bra, ket):
+        """⟨φ|ψ⟩ = bra @ ket"""
+        return np.vdot(bra, ket)  # or bra @ ket
+    
+    @staticmethod
+    def outer_product(ket, bra):
+        """|ψ⟩⟨φ| = ket @ bra"""
+        return np.outer(ket, bra.conj())
+    
+    @staticmethod
+    def norm(ket):
+        """√⟨ψ|ψ⟩"""
+        return np.sqrt(np.vdot(ket, ket))
+
+# Example usage
+if __name__ == "__main__":
+    print("=" * 50)
+    print("BRA-KET ALGEBRA DEMO")
+    print("=" * 50)
+    
+    # Create two quantum states
+    psi = np.array([1, 2j], dtype=complex)      # |ψ⟩
+    phi = np.array([3, 4+5j], dtype=complex)    # |φ⟩
+    
+    print(f"\n1. States:")
+    print(f"   |ψ⟩ = {psi}")
+    print(f"   |φ⟩ = {phi}")
+    
+    print(f"\n2. Transformations:")
+    print(f"   ⟨ψ| = {DiracNotation.ket_to_bra(psi)}")
+    print(f"   ⟨φ| = {DiracNotation.ket_to_bra(phi)}")
+    
+    print(f"\n3. Inner product ⟨ψ|φ⟩:")
+    inner = DiracNotation.inner_product(
+        DiracNotation.ket_to_bra(psi), 
+        phi
+    )
+    print(f"   ⟨ψ|φ⟩ = {inner}")
+    
+    print(f"\n4. Outer product |ψ⟩⟨φ|:")
+    outer = DiracNotation.outer_product(psi, phi)
+    print(f"   |ψ⟩⟨φ| =")
+    print(f"   {outer}")
+    
+    print(f"\n5. Norm of |ψ⟩:")
+   norm_psi = DiracNotation.norm(psi)
+    print(f"   ||ψ|| = √⟨ψ|ψ⟩ = {norm_psi:.3f}")
+    
+    print("\n" + "=" * 50)
